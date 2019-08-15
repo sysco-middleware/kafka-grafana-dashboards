@@ -17,7 +17,7 @@
   "gnetId": 721,
   "graphTooltip": 0,
   "id": 31,
-  "iteration": 1542843276943,
+  "iteration": 1565820390390,
   "links": [],
   "panels": [
     {
@@ -52,7 +52,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 5,
         "x": 0,
         "y": 1
@@ -74,6 +74,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -96,6 +97,7 @@
         {
           "expr": "count(kafka_server_kafkaserver_brokerstate == 3)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "legendFormat": "Number of Brokers",
           "refId": "A"
@@ -133,7 +135,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 3,
         "x": 5,
         "y": 1
@@ -155,6 +157,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -175,9 +178,9 @@
       "tableColumn": "Value",
       "targets": [
         {
-          "expr": "round(sum(kafka_server_sessionexpirelistener_meanrate{name=\"ZooKeeperExpiresPerSec\",}))",
+          "expr": "sum(kafka_server_sessionexpirelistener_zookeeperdisconnects_total)",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -216,7 +219,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 3,
         "x": 8,
         "y": 1
@@ -238,6 +241,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -258,8 +262,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "max(kafka_controller_controllerstats_uncleanleaderelectionspersec)",
+          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelections_total)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -296,8 +301,8 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
-        "w": 3,
+        "h": 3,
+        "w": 5,
         "x": 11,
         "y": 1
       },
@@ -318,6 +323,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -340,6 +346,7 @@
         {
           "expr": "sum(kafka_controller_kafkacontroller_activecontrollercount)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -367,6 +374,7 @@
         "#d44a3a"
       ],
       "datasource": "$datasource",
+      "description": "Bug: after reformatting metrics, this metric seems to be broken.",
       "format": "percentunit",
       "gauge": {
         "maxValue": 100,
@@ -376,9 +384,9 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 14,
+        "h": 6,
+        "w": 4,
+        "x": 16,
         "y": 1
       },
       "id": 22,
@@ -398,6 +406,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -418,8 +427,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(1 - kafka_server_kafkarequesthandlerpool_meanrate{name=\"RequestHandlerAvgIdlePercent\"})/count(kafka_server_kafkarequesthandlerpool_meanrate{name=\"RequestHandlerAvgIdlePercent\"})",
+          "expr": "sum(1 - kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent)/count(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -456,9 +466,9 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 19,
+        "h": 6,
+        "w": 4,
+        "x": 20,
         "y": 1
       },
       "id": 20,
@@ -478,6 +488,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -500,6 +511,7 @@
         {
           "expr": "sum(1 - kafka_network_socketserver_networkprocessoravgidlepercent)/count(kafka_network_socketserver_networkprocessoravgidlepercent)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -519,12 +531,86 @@
       "valueName": "avg"
     },
     {
+      "columns": [],
+      "datasource": "$datasource",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 11,
+        "y": 4
+      },
+      "id": 75,
+      "links": [],
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "kafka_controller_kafkacontroller_activecontrollercount == 1",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "{{ instance }}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active Controller",
+      "transform": "timeseries_to_rows",
+      "type": "table"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 7
       },
       "id": 28,
       "panels": [],
@@ -553,7 +639,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 7
+        "y": 8
       },
       "id": 30,
       "interval": null,
@@ -572,6 +658,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -594,6 +681,7 @@
         {
           "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -633,7 +721,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 7
+        "y": 8
       },
       "id": 32,
       "interval": null,
@@ -652,6 +740,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -674,6 +763,7 @@
         {
           "expr": "sum(kafka_controller_kafkacontroller_globalpartitioncount)",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -713,7 +803,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 7
+        "y": 8
       },
       "id": 34,
       "interval": null,
@@ -732,6 +822,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -754,7 +845,7 @@
         {
           "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount)",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -794,7 +885,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 7
+        "y": 8
       },
       "id": 38,
       "interval": null,
@@ -813,6 +904,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -829,7 +921,7 @@
         {
           "expr": "sum(kafka_cluster_partition_insyncreplicascount)",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -855,16 +947,17 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 7
+        "y": 8
       },
       "id": 54,
       "links": [],
+      "options": {},
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 0,
-        "desc": true
+        "col": 2,
+        "desc": false
       },
       "styles": [
         {
@@ -955,7 +1048,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 10
+        "y": 11
       },
       "id": 50,
       "interval": null,
@@ -974,6 +1067,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -996,6 +1090,7 @@
         {
           "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{job=\"kafka\"})",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -1035,7 +1130,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 10
+        "y": 11
       },
       "id": 40,
       "interval": null,
@@ -1054,6 +1149,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1076,7 +1172,7 @@
         {
           "expr": "sum(kafka_cluster_partition_replicascount) - sum(kafka_cluster_partition_insyncreplicascount)",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
@@ -1105,7 +1201,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 14
       },
       "id": 44,
       "legend": {
@@ -1121,6 +1217,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1131,7 +1228,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_server_brokertopicmetrics_meanrate{name=\"BytesInPerSec\",})",
+          "expr": "sum without(topic, instance) (rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"kafka\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "all topics",
@@ -1140,6 +1237,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Total Bytes in",
       "tooltip": {
@@ -1161,7 +1259,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1189,7 +1287,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 14
       },
       "id": 46,
       "legend": {
@@ -1205,6 +1303,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1215,7 +1314,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_server_brokertopicmetrics_meanrate{name=\"BytesOutPerSec\",})",
+          "expr": "sum without(topic, instance) (rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"kafka\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "all topics",
@@ -1224,6 +1323,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Total Bytes out",
       "tooltip": {
@@ -1245,7 +1345,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1270,18 +1370,22 @@
       "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
-        "h": 5,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 21
       },
       "id": 42,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -1289,31 +1393,33 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_network_requestmetrics_meanrate{job=\"kafka\",name=\"RequestsPerSec\",request=\"Produce\"})",
+          "expr": "sum without(topic, instance) (rate(kafka_network_requestmetrics_requests_total{job=\"kafka\",request=\"Produce\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "all topics",
+          "legendFormat": "version: {{ version }}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Produced per second",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "individual"
+        "sort": 1,
+        "value_type": "cumulative"
       },
       "type": "graph",
       "xaxis": {
@@ -1329,7 +1435,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1354,18 +1460,22 @@
       "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
-        "h": 5,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 21
       },
       "id": 48,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": true,
         "max": true,
         "min": false,
+        "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -1373,31 +1483,33 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_network_requestmetrics_meanrate{job=\"kafka\",name=\"RequestsPerSec\",request=\"FetchConsumer\"})",
+          "expr": "sum without(instance, topic) (rate(kafka_network_requestmetrics_requests_total{job=\"kafka\",request=\"FetchConsumer\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "all topics",
+          "legendFormat": "version {{ version }}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Fetch Consumer per second",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "individual"
+        "sort": 1,
+        "value_type": "cumulative"
       },
       "type": "graph",
       "xaxis": {
@@ -1413,7 +1525,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1436,7 +1548,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
       "id": 59,
       "panels": [],
@@ -1455,7 +1567,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 61,
       "legend": {
@@ -1464,7 +1576,7 @@
         "current": true,
         "max": false,
         "min": false,
-        "rightSide": false,
+        "rightSide": true,
         "show": true,
         "sideWidth": 400,
         "sort": "current",
@@ -1476,6 +1588,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1519,6 +1632,7 @@
         }
       ],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Disk-space Usage",
       "tooltip": {
@@ -1568,22 +1682,25 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 26
+        "y": 29
       },
       "id": 63,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1594,7 +1711,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filefd_allocated{job='kafka-node'}",
+          "expr": "node_filefd_allocated{job='kafka-node-exporter'}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}",
@@ -1603,6 +1720,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Number of open files",
       "tooltip": {
@@ -1647,7 +1765,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 38
       },
       "id": 10,
       "panels": [],
@@ -1656,60 +1774,230 @@
     },
     {
       "aliasColors": {
-        "localhost:7071": "#629E51"
+        "iowait": "super-light-orange",
+        "steal": "dark-red",
+        "user": "yellow"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$datasource",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 39
+      },
+      "id": 77,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": null,
+        "sortDesc": null,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": true,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"system\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"user\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "B"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"nice\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "C"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"iowait\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "D"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"steal\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "E"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"idle\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "F"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"irq\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "G"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"softirq\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "H"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"guest\",job=\"kafka-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "I"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "decimals": 2,
       "editable": true,
       "error": false,
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 36
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 39
       },
-      "id": 1,
-      "isNew": true,
+      "id": 79,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 2,
       "links": [],
+      "maxPerRow": 6,
       "nullPointMode": "connected",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(java_lang_operatingsystem_processcpuload {job=\"kafka\"}[1m])",
+          "expr": "node_load1{job=\"kafka-node-exporter\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
-          "metric": "process_cpu_seconds_total",
+          "legendFormat": "load 1m {{ instance }}",
+          "metric": "",
           "refId": "A",
-          "step": 4
+          "step": 1200,
+          "target": ""
+        },
+        {
+          "expr": "count(node_cpu_seconds_total{job=\"kafka-node-exporter\", mode=\"system\"}) by (instance)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "#cores {{ instance }}",
+          "metric": "",
+          "refId": "B",
+          "step": 1200,
+          "target": ""
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "CPU Usage",
+      "title": "Load",
       "tooltip": {
         "msResolution": false,
         "shared": true,
@@ -1726,8 +2014,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Cores",
+          "decimals": null,
+          "format": "none",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1735,7 +2023,6 @@
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1760,10 +2047,10 @@
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 36
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 47
       },
       "id": 2,
       "isNew": true,
@@ -1780,6 +2067,7 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "connected",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1793,14 +2081,22 @@
           "expr": "sum without(area)(java_lang_memory_heapmemoryusage_used {job=\"kafka\"})",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "used: {{instance}}",
           "metric": "jvm_memory_bytes_used",
           "refId": "A",
           "step": 4
+        },
+        {
+          "expr": "sum without(area)(java_lang_memory_heapmemoryusage_max {job=\"kafka\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "max: {{instance}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "JVM Memory Used",
       "tooltip": {
@@ -1853,26 +2149,31 @@
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 36
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 47
       },
       "id": 3,
       "isNew": true,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": false,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 2,
       "links": [],
       "nullPointMode": "connected",
+      "options": {},
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1886,7 +2187,7 @@
           "expr": "sum without(gc)(rate(java_lang_garbagecollector_collectioncount{job=\"kafka\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} {{name}}",
           "metric": "jvm_gc_collection_seconds_sum",
           "refId": "A",
           "step": 4
@@ -1894,6 +2195,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Time spent in GC",
       "tooltip": {
@@ -1932,33 +2234,679 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 55
+      },
+      "id": 66,
+      "panels": [],
+      "title": "Zookeeper",
+      "type": "row"
+    },
+    {
+      "datasource": "$datasource",
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 56
+      },
+      "id": 67,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "decimals": null,
+            "max": "200",
+            "min": 0,
+            "unit": "none"
+          },
+          "mappings": [],
+          "override": {},
+          "thresholds": [
+            {
+              "color": "green",
+              "index": 0,
+              "value": null
+            },
+            {
+              "color": "red",
+              "index": 1,
+              "value": 180
+            }
+          ],
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.2.5",
+      "targets": [
+        {
+          "expr": "sum(zookeeper_numaliveconnections)",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "Num Alive Connections",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active Connections",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "description": "This is a ZooKeeper Server role-level health test that checks that a moving average of the size of the ZooKeeper Server's outstanding requests does not exceed some value. Outstanding requests are the number of queued requests in the server. It increases when the server is under load and is receiving more sustained requests than it can process. A failure of this health test indicates a high connection load on the ZooKeeper Server.",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 56
+      },
+      "id": 69,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "zookeeper_outstandingrequests",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{replicaId}}-{{memberType}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "warning",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 10,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Outstanding requests",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "iowait": "super-light-orange",
+        "steal": "dark-red",
+        "user": "yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 62
+      },
+      "id": 81,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": false,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": true,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"system\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"user\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "B"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"nice\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "C"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"iowait\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "D"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"steal\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "E"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"idle\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "F"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"irq\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "G"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"softirq\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "H"
+        },
+        {
+          "expr": "sum by (mode, instance)(irate(node_cpu_seconds_total{mode=\"guest\",job=\"zookeeper-node-exporter\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}} {{ instance }}",
+          "refId": "I"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": "100",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "decimals": 2,
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {},
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 62
+      },
+      "id": 80,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "options": {},
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_load1{job=\"zookeeper-node-exporter\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "load 1m {{ instance }}",
+          "metric": "",
+          "refId": "A",
+          "step": 1200,
+          "target": ""
+        },
+        {
+          "expr": "count(node_cpu_seconds_total{job=\"zookeeper-node-exporter\", mode=\"system\"}) by (instance)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "#cores {{ instance }}",
+          "metric": "",
+          "refId": "B",
+          "step": 1200,
+          "target": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Load",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "none",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "localhost:7071": "#BA43A9"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {},
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 70
+      },
+      "id": 72,
+      "isNew": true,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "options": {},
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum without(area)(java_lang_memory_heapmemoryusage_used {job=\"zookeeper\"})",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "used: {{instance}}",
+          "metric": "jvm_memory_bytes_used",
+          "refId": "A",
+          "step": 4
+        },
+        {
+          "expr": "sum without(area)(java_lang_memory_heapmemoryusage_max {job=\"zookeeper\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "max: {{instance}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "JVM Memory Used",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": "Memory",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 70
+      },
+      "id": 73,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sideWidth": 400,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "100 * (node_filesystem_size_bytes{fstype='xfs', mountpoint='/var/lib/zookeeper'} - node_filesystem_free_bytes{fstype='xfs'}) / node_filesystem_size_bytes{fstype='xfs'}",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}:{{mountpoint}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "warning",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 80,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 90,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk-space Usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 16,
+  "schemaVersion": 18,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "text": "confluent-prom-prod",
-          "value": "confluent-prom-prod"
+          "selected": true,
+          "tags": [],
+          "text": "openshift_prometheus_prod",
+          "value": "openshift_prometheus_prod"
         },
         "hide": 0,
+        "includeAll": false,
         "label": "Data source",
+        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
         "refresh": 1,
-        "regex": "confluent-prom-.*",
+        "regex": ".*openshift_prometheus.*",
         "skipUrlSync": false,
         "type": "datasource"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -1989,5 +2937,5 @@
   "timezone": "browser",
   "title": "Kafka Cluster",
   "uid": "zFzyXlFmk",
-  "version": 38
+  "version": 68
 }
